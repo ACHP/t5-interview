@@ -2,10 +2,17 @@ package com.talentroc.t5.interview.pages.contact;
 
 
 import com.talentroc.t5.interview.entities.Contact;
+import com.talentroc.t5.interview.services.ContactManager;
+import com.talentroc.t5.interview.utils.BusinessException;
+
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class ContactEdit {
 
+    @Inject
+    private ContactManager contactManager;
+	
     @Property
     private Contact contact;
 
@@ -16,5 +23,18 @@ public class ContactEdit {
     Boolean onActivate(Contact contact) {
         this.contact = contact;
         return Boolean.TRUE;
+    }
+    
+    
+    Object onSuccess(){
+    	try {
+		contactManager.create(contact);
+    	} catch (BusinessException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+    	}
+		return ContactIndex.class;
+    	
+    	
     }
 }

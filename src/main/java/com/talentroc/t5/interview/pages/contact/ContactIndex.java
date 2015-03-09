@@ -1,11 +1,14 @@
 package com.talentroc.t5.interview.pages.contact;
 
-import com.talentroc.t5.interview.entities.Contact;
-import com.talentroc.t5.interview.services.ContactManager;
+import java.util.List;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.jpa.annotations.CommitAfter;
 
-import java.util.List;
+import com.talentroc.t5.interview.entities.Contact;
+import com.talentroc.t5.interview.services.ContactManager;
+import com.talentroc.t5.interview.utils.BusinessException;
 
 public class ContactIndex {
     @Inject
@@ -17,4 +20,5 @@ public class ContactIndex {
     public List<Contact> getContacts() {
         return contactManager.retrieveAll();
     }
+    
 }

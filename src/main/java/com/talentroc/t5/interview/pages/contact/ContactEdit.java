@@ -1,9 +1,9 @@
 package com.talentroc.t5.interview.pages.contact;
 
 
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.jpa.annotations.CommitAfter;
 
 import com.talentroc.t5.interview.entities.Contact;
 import com.talentroc.t5.interview.services.ContactManager;
@@ -13,14 +13,18 @@ public class ContactEdit {
 
     @Inject
     private ContactManager contactManager;
-	
+    
+  
     @Property
     private Contact contact;
     
-    private Long id;
 
     void onActivate() {
         contact = new Contact();
+    }
+    
+    Contact onPassivate() {
+        return contact;
     }
 
     Boolean onActivate(Contact contact) {
@@ -31,13 +35,15 @@ public class ContactEdit {
     }
     
   
+     
     Object onSuccess() throws BusinessException{
-    	//Problème : contact.getId() => null
-    	//			this.id ==> null
-    	//System.out.println(this.id);
-    	try {
-    		contactManager.create(contact);
-    			//contactManager.update(contact);
+    	
+       	try {
+       		if(contactManager.retrieveById(contact.getId())==null){
+       			contactManager.create(contact);
+       		}else{
+       			contactManager.update(contact);
+       		}   			
 
     	} catch (BusinessException e) {
     		

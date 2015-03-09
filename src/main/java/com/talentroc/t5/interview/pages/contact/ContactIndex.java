@@ -21,4 +21,10 @@ public class ContactIndex {
         return contactManager.retrieveAll();
     }
     
+   
+    
+    void onActionFromDelete(Contact c) throws BusinessException{
+    	contactManager.delete(c);
+    }
+    
 }

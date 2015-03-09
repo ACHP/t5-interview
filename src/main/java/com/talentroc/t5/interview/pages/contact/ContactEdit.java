@@ -26,11 +26,13 @@ public class ContactEdit {
     }
     
     
-    Object onSuccess(){
+    Object onSuccess() throws BusinessException{
     	try {
-		contactManager.create(contact);
+    		
+    		contactManager.update(contact);
+		
     	} catch (BusinessException e) {
-		// TODO Auto-generated catch block
+    		contactManager.create(contact);
 		e.printStackTrace();
     	}
 		return ContactIndex.class;

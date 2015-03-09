@@ -21,6 +21,29 @@ public class ContactManagerImpl implements ContactManager {
     @Override
     public void validate(final Contact contact) throws BusinessException {
         // TODO - Ecrire le code de validation du contact.
+    	Boolean validate = true;
+    	if(contact.getLastName()!=null){
+    		if((contact.getLastName().length()<=3)&&(contact.getLastName().length()>=50))
+        		throw new BusinessException("The lastname of this contact is too long or too short, it must contains between 3 and 50 chars");
+  
+    	}else{
+    		throw new BusinessException("The lastname do not exist");
+        	
+    	}
+    		
+    	if(contact.getTelephone()!=null){
+			if((contact.getTelephone().length()!=10)&&(!contact.getTelephone().matches("^[0-9]+$")))
+				throw new BusinessException("The telephone number is not valid, it may be too long or contains chars");
+		}else{
+			throw new BusinessException("The telephone number do not exist");
+		}
+					
+		if(contact.getFirstName()!=null){
+			if(contact.getLastName().length()>50)
+				throw new BusinessException("The firstname of this contact is too long");
+		}
+   	
+    	
     }
 
     @Override
@@ -29,29 +52,8 @@ public class ContactManagerImpl implements ContactManager {
     	
     	// Cette solution n'est pas elegante mais pas le choix si on veut afficher les bonnes exceptions .
     	if (contact.getId() == null) { 
-    		if(contact.getLastName()!=null){
-    			if((contact.getLastName().length()>=3)&&(contact.getLastName().length()<=50)){
-    				if(contact.getTelephone()!=null){
-    					if((contact.getTelephone().length()==10)&&(contact.getTelephone().matches("^[0-9]+$"))){
-    						if(contact.getFirstName()!=null){
-    							if(contact.getLastName().length()>50){
-    								throw new BusinessException("The firstname of this contact is too long");
-    							}
-    						}
-    						validate(contact);
-    						entityManager.persist(contact);
-            			}else{
-            				throw new BusinessException("The telephone number is not valid, it may be too long or contains chars");
-            			}
-        			}else{
-        				throw new BusinessException("The telephone number do not exist");
-        			}
-    			}else{
-    				throw new BusinessException("The lastname of this contact is too long or too short, it must contains between 3 and 50 chars");
-    			}
-    		}else{
-    			throw new BusinessException("The lastname do not exist");
-    		}
+    		validate(contact);
+    		entityManager.persist(contact);			
     	}else{
     		throw new BusinessException("This contact already exist in DB.");
     	}

@@ -32,7 +32,7 @@ public class Contact implements Serializable {
     @Column(length = 50)
     private String lastName;
 
-    @Validate("required, minlength=10,maxlength=10, regexp=^[0-9]*$")
+    @Validate("required, minlength=10,maxlength=10, regexp=^[0-9]+$")
     @Column(length = 10)
     private String telephone;
 

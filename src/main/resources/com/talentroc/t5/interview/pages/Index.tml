@@ -3,7 +3,7 @@
       xmlns:p="tapestry:parameter">
 <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
 
-<p>éré"ré"ré"r</p>
+
 <p>${message:greeting}</p>
 
 <p>The current time is: <strong>${currentTime}</strong></p>

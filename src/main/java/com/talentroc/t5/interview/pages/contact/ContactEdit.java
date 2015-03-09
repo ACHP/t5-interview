@@ -29,8 +29,6 @@ public class ContactEdit {
 
     Boolean onActivate(Contact contact) {
         this.contact = contact;
-        this.id = contact.getId();
-       // System.out.println(this.id);
         return Boolean.TRUE;
     }
     

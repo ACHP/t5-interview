@@ -1,5 +1,8 @@
 package com.talentroc.t5.interview.entities;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,24 +10,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import java.io.Serializable;
-import java.util.Objects;
+
+import org.apache.tapestry5.beaneditor.NonVisual;
+import org.apache.tapestry5.beaneditor.Validate;
 
 @Entity
 @NamedQueries({@NamedQuery(name = Contact.RETRIEVE_ALL, query = "SELECT c FROM Contact c")})
 public class Contact implements Serializable {
     public static final java.lang.String RETRIEVE_ALL = "Conctact.retrieveALl";
-
+    
+    @NonVisual
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Validate("maxlength=50")
     @Column(length = 50)
     private String firstName;
 
+    @Validate("required, minlength=3,maxlength=50")
     @Column(length = 50)
     private String lastName;
 
+    @Validate("required, minlength=10,maxlength=10, regexp=^[0-9]*$")
     @Column(length = 10)
     private String telephone;
 
